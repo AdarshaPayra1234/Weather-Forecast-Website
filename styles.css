@@ -1,0 +1,50 @@
+/* Custom styles to enhance the design */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Smooth animations */
+#currentWeather, .forecast-card {
+    transition: all 0.3s ease;
+}
+
+.forecast-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Weather icon animations */
+#weatherIcon i {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Gradient text for temperature */
+.temp-gradient {
+    background: linear-gradient(to right, #3b82f6, #6366f1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #currentWeather .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .forecast-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .forecast-container {
+        grid-template-columns: 1fr;
+    }
+}

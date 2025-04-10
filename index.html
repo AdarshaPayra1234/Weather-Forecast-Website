@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <!-- Meta tags for the page -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weather Forecast</title>
+        <meta name="description" content="Get accurate weather forecasts for any location worldwide. Check current conditions and 5-day forecasts with detailed weather information.">
+        <meta name="keywords" content="weather, forecast, temperature, humidity, wind, weather app, weather forecast">
+        <meta name="author" content="Weather Forecast">
+        <meta name="robots" content="index, follow">
+        <meta property="og:title" content="Weather Forecast">
+        <meta property="og:description" content="Get accurate weather forecasts for any location worldwide.">
+        <meta property="og:type" content="website">
+        <meta name="theme-color" content="#3b82f6">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicons -->
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Weather Forecast" />
+        <link rel="manifest" href="/site.webmanifest" />
+    </head>
+
+<body class="bg-gradient-to-br from-blue-100 to-indigo-200 min-h-screen font-poppins">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header with animated weather icon -->
+        <header class="text-center mb-10">
+            <div class="inline-block animate-bounce">
+                <i class="fas fa-cloud-sun text-5xl text-yellow-500 mb-4"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Weather Forecast</h1>
+            <p class="text-lg text-gray-600">Get accurate weather updates worldwide</p>
+        </header>
+
+        <!-- Search Box -->
+        <div class="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 mb-10 transition-all duration-300 hover:shadow-2xl">
+            <div class="flex flex-col md:flex-row gap-4 mb-4">
+                <div class="relative flex-grow">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <input type="text" id="cityInput" 
+                           class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                           placeholder="Enter a city name...">
+                    <div id="recentCitiesDropdown" class="hidden absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+                        <!-- Recent cities will appear here -->
+                    </div>
+                </div>
+                <button id="searchBtn" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
+                    <i class="fas fa-search mr-2"></i>Search
+                </button>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-gray-500 mb-3">or</p>
+                <button id="currentLocationBtn" class="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
+                    <i class="fas fa-location-arrow mr-2"></i>Use My Location
+                </button>
+            </div>
+        </div>
+
+        <!-- Current Weather Card -->
+        <div id="currentWeather" class="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 mb-10 hidden transition-all duration-500 transform hover:scale-[1.01]">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold text-gray-800" id="currentLocation">London</h2>
+                <span class="text-gray-500" id="currentDate">Today</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex items-center bg-gradient-to-br from-yellow-50 to-amber-50 p-4 rounded-xl">
+                    <div id="weatherIcon" class="text-6xl mr-4 text-amber-400">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold" id="currentTemp">24°C</p>
+                        <p class="text-gray-600 capitalize" id="weatherDescription">Sunny</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-wind text-blue-500 mr-2 text-xl"></i>
+                        <span class="text-gray-600">Wind</span>
+                    </div>
+                    <p class="text-2xl font-semibold" id="windSpeed">5.2 km/h</p>
+                    <div class="mt-2 h-2 bg-blue-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-500 rounded-full" style="width: 50%"></div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-tint text-blue-500 mr-2 text-xl"></i>
+                        <span class="text-gray-600">Humidity</span>
+                    </div>
+                    <p class="text-2xl font-semibold" id="humidity">65%</p>
+                    <div class="mt-2 h-2 bg-blue-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-500 rounded-full" style="width: 65%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forecast Section -->
+        <div id="forecastContainer" class="max-w-4xl mx-auto hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">5-Day Forecast</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <!-- Forecast cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorContainer" class="max-w-2xl mx-auto bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8 hidden rounded-lg">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <p id="errorMessage"></p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 text-gray-600">
+            <p class="mb-2">© <span id="currentYear"></span> Weather Forecast App</p>
+            <p class="text-sm">Powered by OpenWeatherMap</p>
+        </footer>
+    </div>
+
+    <!-- Liknking Java Script -->
+    <script src="script.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
