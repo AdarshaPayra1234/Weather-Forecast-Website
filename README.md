@@ -23,4 +23,4 @@ A responsive weather forecast website built with JavaScript, HTML, and Tailwind 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/weather-app.git
+   git clone https://github.com/AdarshaPayra1234/Weather-Forecast-Website.git
